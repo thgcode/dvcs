@@ -10,7 +10,9 @@ import dvcs
 
 mas dessa forma é necessário usar as funções com dvcs. como prefixo.
 
-3. Para gerar executável:
+3. Para gerar executável (exemplo com a ferramenta Pyinstaller):
 pyinstaller nomedoarquivo.py
 ou se quiser um executável grande, mas tudo dentro dele:
 pyinstaller --onefile nomedoarquivo.py
+
+Observação: certifique-se que na geração do executável, a ferramenta irá incluir a biblioteca python3.dll, caso contrário o dvcs não irá funcionar corretamente.
