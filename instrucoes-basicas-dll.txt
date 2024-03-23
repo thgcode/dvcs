@@ -1,0 +1,16 @@
+Instruções básicas para usar o DVCS versão módulo em um projeto
+1. Copie os arquivos dvcs.py e _dvcs.pyd para o diretório do seu
+projeto.
+
+2. Para trazer as funções do DVCS para o seu programa, use
+from dvcs import *
+
+ou se preferir:
+import dvcs
+
+mas dessa forma é necessário usar as funções com dvcs. como prefixo.
+
+3. Para gerar executável:
+pyinstaller nomedoarquivo.py
+ou se quiser um executável grande, mas tudo dentro dele:
+pyinstaller --onefile nomedoarquivo.py

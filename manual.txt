@@ -1,0 +1,244 @@
+DVCS - Versão 0.2 Alfa - Manual de referência
+
+O que é?
+O DVCS é um módulo que possibilita ao Python
+se comunicar com as rotinas do Dosvox. Com isso, é possível criar aplicativos
+em Python para o Dosvox como se fossem os nativos escritos em Delphi.
+
+Modo de uso
+1. Copie os arquivos dvcs.py e _dvcs.pyd para o diretório do seu
+projeto.
+
+2. Para trazer as funções do DVCS para o seu programa, use
+from dvcs import *
+
+ou se preferir:
+import dvcs
+
+mas dessa forma é necessário usar as funções com dvcs. como prefixo.
+
+Lista de funções
+Aqui está a lista de todas as funções implementadas no DVCS até o
+momento.
+As funções proporcionadas nesta parte do manual foram expostas diretamente das proporcionadas pelo tradutor, então
+em caso de dúvida estas devem ser consultadas como referência.
+
+sintInic(veloc: int, dir: str)
+Se o sintetizador não estiver inicializado, esta função irá
+inicializá-lo com a velocidade e o diretório especificados. Se a
+velocidade for 0, o sintetizador assumirá a configurada pelo usuário.
+Nada faz se o sintetizador estiver inicializado.
+
+sintFim()
+Termina o processo do sintetizador.
+
+sintWrite(s: ?)
+Escreve o valor de s na tela e o fala.
+
+sintWriteln(s: ?)
+Escreve o valor de s na tela e o fala, pulando linha.
+A função print, do Python, também pode ser usada para esse propósito.
+
+sintReadln(): str
+Lê uma linha de texto com suporte de síntese de fala e a retorna.
+
+sintSenha(): str
+Lê uma linha de senha do usuário (ocultando os caracteres digitados).
+
+writeln, write e readln
+Fazem a mesma coisa que as funções acima, só que sem suporte de fala.
+
+sintBip() e sintClek()
+Emitem um bip ou clek.
+
+sintReadKey(): bytes e readKey(): bytes
+Lê somente um caractere e retorna. a função sintReadKey irá falar o
+caractere digitado.
+Observação
+Para caracteres especiais, como o pressionamento de uma seta direcional,
+o caractere de byte nulo (b'\0') é retornado antes da tecla.
+
+sintSoletra(s: str)
+Soletra a string s.
+
+Sintetiza(s: str)
+Apenas fala a string s.
+
+existeArqSom(s: str)
+Verifica se um arquivo de som existe no diretório do aplicativo.
+
+sintAmbiente(seção, item: str)
+Pega um valor do arquivo de configuração (dosvox.ini).
+
+sintGravaAmbiente(seção, item, valor: str)
+Grava um atributo no arquivo de configuração (dosvox.ini).
+
+sintRemoveAmbiente(seção, item: str)
+Remove um atributo do arquivo de configuração (dosvox.ini).
+
+sintPara()
+Para o processo de síntese de fala.
+
+sintSom(s: str)
+Toca um arquivo Wav.
+
+sintFalando(): bool
+Retorna True se o sintetizador estiver falando, False caso contrário.
+
+SAPIPresente(): bool
+Retorna True se o sintetizador estiver usando a fala SAPI, False caso contrário.
+
+keyPressed(): bool
+Retorna True se uma tecla foi pressionada, False caso contrário.
+
+whereX(): int
+Retorna a linha na qual a dvcrt está escrevendo.
+
+whereY(): int
+Retorna a coluna na qual a dvcrt está escrevendo.
+
+gotoXY(x, y: int)
+Posiciona o cursor na linha x e coluna y para escrita.
+
+clrScr()
+Limpa a tela.
+
+clrEol()
+Limpa até o fim da linha que o cursor está.
+
+textColor(cor: int)
+Muda a cor do texto (ver mais abaixo para as constantes).
+
+textBackground(fundo: int)
+Muda a cor de fundo do texto (ver mais abaixo para as constantes).
+
+setWindowTitle(s: str)
+Muda o título da janela.
+Observação: o título com mais de 144 letras provavelmente será truncado.
+
+popupMenuCria(x, y, tam, nOpcoesTela, corfundo: int)
+Cria um menu selecionável com as setas.
+
+popupMenuAdiciona(nomeArqSom, nome: string)
+Adiciona um item no menu.
+
+popupMenuSeleciona()
+Exibe o menu e retorna a opção selecionada.
+Observação: no Dosvox a lista de opções começa no 1.
+
+obtemNomeArq(dy: int)
+Rotina básica para pegar um nome de arquivo no Dosvox.
+Retorna o nome do arquivo selecionado pelo usuário como string.
+
+falaDia()
+Fala o dia da semana, semelhantemente à função Control F8.
+
+falaHora()
+Fala a hora, semelhantemente à função F8.
+
+leitorDeTela()
+Ativa o leitor de tela (usado na opção CONTROL + ALT + F9 na maioria dos
+programas).
+
+sintFalapont(comPontuacao: bool = False): bool?
+Se usada sem argumentos, esta função retorna True se o sintetizador fala
+pontuação, ou False caso contrário. Se usada com um argumento, ela
+configura se o sintetizador deve falar pontuação.
+
+sintEdita(campo: str, x, y, tamanho: int, altera: bool): str, bytes
+Edita uma string previamente salva.
+x e y é onde deve começar a editar.
+Tamanho é o tamanho máximo do texto.
+Altera é se pode alterar o texto.
+A função retorna o campo modificado e a tecla usada para terminar o
+editor (tipo bytes).
+
+waitMessage()
+Espera algum evento no programa acontecer.
+
+executaScript(nomeArq, rótulo: str, numUltLinha: int, linha: str,
+rotinaExterna: função): numUltLinha, tconteúdo da linha, erro
+Executa um script pelo Scripvox 6.3.
+nomeArq é o nome do arquivo do script.
+Rótulo é de onde iniciar executando.
+numUltLinha é de qual linha começar executando.
+Conteúdo da linha é o texto da linha.
+rotinaExterna é uma função que proporcionará comandos adicionais ao
+Scripvox.
+Ela recebe uma string e deverá retornar uma string.
+
+Após a função executaScript terminar, ela vai retornar os seguintes
+valores:
+* numUltLinha qual a última linha que executou;
+* Conteúdo da linha, se houver;
+* Erro: maior que 0 ocorreu um erro no script.
+Observação: Uma cópia do Scripvox 6.3 está incluída no executável do
+DVCS.
+
+scriptCalculaExpressao(expressão: str): str
+Permite colocar ou pegar variáveis do script que irá ser executado.
+Exemplo:
+scriptCalculaExpressao("$x = 5")
+Faz $x ser 5, e quando o script executar terá essa variável.
+x = scriptCalculaExpressao("$x")
+Pega o resultado de $x.
+
+formCria()
+Cria um formulário para preenchimento de dados.
+
+formCampo(som, nome, valor padrão: str, tamanho: int)
+Adiciona um campo no formulário.
+Nota: ao contrário do Pascal, a variável que contém o valor padrão do
+campo não é modificada, ver mais abaixo.
+
+formEdita(pode alterar: bool): dicionário, tecla
+Permite que o usuário altere o formulário.
+Quando a variável pode alterar estiver como True, o usuário poderá
+escrever no campo.
+A função retorna um dicionário, cujas chaves são os nomes dos campos e
+os valores são os valores fornecidos pelo usuário e uma tecla, que é a
+tecla usada pelo usuário para sair do formulário.
+
+Funções proporcionadas pelo DVCS
+Estas funções foram criadas para facilitar o uso do tradutor para as
+tarefas mais comuns. Estão implementadas no arquivo dvcs.py.
+
+dvcsLeTecla(falar=True): bytes
+Lê uma tecla, tratando o caso das teclas especiais.
+Quando falar for False, a tecla não será falada pelo Dosvox.
+O uso recomendado para essa função é o seguinte (usando as constantes):
+tecla = dvcsLeTecla()
+if tecla == F1:
+    # código para a função F1
+
+Nota: adicionado nesta versão o modificador falar, sugerido
+pelo Fabiano Ferreira.
+
+dvcsExecutaScript(nomeArq: str, rotina_externa: função = None)
+Executa um arquivo pelo Scriptvox do DVCS.
+A função retorna os mesmos valores que a função nativa executaScript,
+acima.
+
+Constantes das teclas implementadas
+ENTER, F1 a F12, CONTROL_F1 a CONTROL_F12, ALT_F1, INSERT, DELETE, HOME,
+END, PAGEUP, PAGEDOWN, CIMA, BAIXO, ESQUERDA, DIREITA, BACKSPACE, ESC e
+TAB.
+
+Constantes das cores (para usar em textColor e textBackground)
+BLACK
+BLUE
+GREEN
+CYAN
+RED
+MAGENTA
+BROWN
+LIGHTGRAY
+
+DARKGRAY
+LIGHTBLUE
+LIGHTGREEN
+LIGHTCYAN
+LIGHTRED
+LIGHTMAGENTA
+YELLOW
+WHITE
