@@ -5,7 +5,8 @@ unit PyAPI;
 
   Minimum set of Python function declarations for module libraries.
 
-  Author: Phil (MacPgmr at fastermac.net).
+  Original Author: Phil (MacPgmr at fastermac.net).
+  Modifications by Thiago Seus to support DVCS development
 
   To add other Python function declarations, see the Python header
    files (.h) included with every Python distribution.
