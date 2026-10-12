@@ -121,8 +121,15 @@ begin
   pyWrite := pegaStringGenerica(self, args, auxWrite);
 end;
 
+function pyScreenSize( self: pPyObject): pPyObject;
+// Retorna largura e altura da tela em uma tupla Python (x, y).
+cdecl;
+begin
+    pyScreenSize := Py_BuildValue('(ii)', ScreenSize.X, ScreenSize.Y);
+end;
+
 var
-  methods: packed array[0..13] of PyMethodDef;
+  methods: packed array[0..14] of PyMethodDef;
 
 procedure register;
 begin
@@ -191,10 +198,15 @@ begin
   methods[12].flags := METH_VARARGS;
   methods[12].doc := 'Escreve na janela';
 
-  methods[13].name := nil;
-  methods[13].meth := nil;
-  methods[13].flags := 0;
-  methods[13].doc := nil;
+  methods[13].name := 'screenSize';
+  methods[13].meth := @pyScreenSize;
+  methods[13].flags := METH_NOARGS;
+  methods[13].doc := 'Obtém o tamanho da tela.';
+
+  methods[14].name := nil;
+  methods[14].meth := nil;
+  methods[14].flags := 0;
+  methods[14].doc := nil;
 
   copiaFuncoes(@methods[0]);
 end;

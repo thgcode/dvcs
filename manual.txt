@@ -97,6 +97,9 @@ Retorna a linha na qual a dvcrt está escrevendo.
 whereY(): int
 Retorna a coluna na qual a dvcrt está escrevendo.
 
+screenSize(): tupla com (int, int)
+Retorna o tamanho da tela (em colunas / linhas)
+
 goToXY(x, y: int)
 Posiciona o cursor na linha x e coluna y para escrita.
 
